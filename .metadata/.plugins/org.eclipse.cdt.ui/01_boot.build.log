@@ -1,0 +1,59 @@
+01:52:17 **** Incremental Build of configuration Debug for project 01_boot ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+In file included from /home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/bootloader_uart.h:6,
+                 from ../Core/Src/main.c:29:
+/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/flash.h:218:17: warning: 'get_sector' declared 'static' but never defined [-Wunused-function]
+  218 | static uint32_t get_sector(uint32_t addr);
+      |                 ^~~~~~~~~~
+/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/bootloader_uart.h:25:13: warning: 'send_response' declared 'static' but never defined [-Wunused-function]
+   25 | static void send_response(ResponseType resp, uint8_t status);
+      |             ^~~~~~~~~~~~~
+/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/bootloader_uart.h:37:13: warning: 'process_packet' declared 'static' but never defined [-Wunused-function]
+   37 | static void process_packet(void);
+      |             ^~~~~~~~~~~~~~
+/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/bootloader_uart.h:29:26: warning: 'write_chunk_to_flash' declared 'static' but never defined [-Wunused-function]
+   29 | static HAL_StatusTypeDef write_chunk_to_flash(uint32_t address, uint8_t* data, uint16_t length);
+      |                          ^~~~~~~~~~~~~~~~~~~~
+/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/bootloader_uart.h:33:26: warning: 'copy_app2_to_app1' declared 'static' but never defined [-Wunused-function]
+   33 | static HAL_StatusTypeDef copy_app2_to_app1(void);
+      |                          ^~~~~~~~~~~~~~~~~
+/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/bootloader_uart.h:16:28: warning: 'uart_handle' defined but not used [-Wunused-variable]
+   16 | static UART_HandleTypeDef* uart_handle;
+      |                            ^~~~~~~~~~~
+/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/bootloader_uart.h:15:17: warning: 'total_received_bytes' defined but not used [-Wunused-variable]
+   15 | static uint32_t total_received_bytes = 0;
+      |                 ^~~~~~~~~~~~~~~~~~~~
+/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/bootloader_uart.h:14:13: warning: 'update_in_progress' defined but not used [-Wunused-variable]
+   14 | static bool update_in_progress = false;
+      |             ^~~~~~~~~~~~~~~~~~
+/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/bootloader_uart.h:13:17: warning: 'current_address' defined but not used [-Wunused-variable]
+   13 | static uint32_t current_address = APP2_START_ADDR;
+      |                 ^~~~~~~~~~~~~~~
+/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/bootloader_uart.h:12:21: warning: 'rx_packet' defined but not used [-Wunused-variable]
+   12 | static UpdatePacket rx_packet;
+      |                     ^~~~~~~~~
+In file included from ../Core/Src/main.c:26:
+/home/oguz/gitlocalRepos/work_2/01_boot/Bootloader/Inc/bootloader.h:12:13: warning: 'bl_welcome_message' defined but not used [-Wunused-function]
+   12 | static void bl_welcome_message()
+      |             ^~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "01_boot.elf" @"objects.list"   -mcpu=cortex-m3 -T"/home/oguz/gitlocalRepos/work_2/01_boot/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="01_boot.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 01_boot.elf
+ 
+arm-none-eabi-size  01_boot.elf 
+arm-none-eabi-objdump -h -S 01_boot.elf  > "01_boot.list"
+arm-none-eabi-objcopy  -O ihex 01_boot.elf  "01_boot.hex"
+   text	   data	    bss	    dec	    hex	filename
+   7044	     12	   1644	   8700	   21fc	01_boot.elf
+arm-none-eabi-objcopy  -O binary 01_boot.elf  "01_boot.bin"
+Finished building: default.size.stdout
+ 
+Finished building: 01_boot.hex
+ 
+Finished building: 01_boot.bin
+ 
+Finished building: 01_boot.list
+ 
+
+01:52:17 Build Finished. 0 errors, 11 warnings. (took 402ms)
+
