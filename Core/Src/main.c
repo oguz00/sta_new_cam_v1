@@ -25,6 +25,13 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+/* GPIO definitions */
+#define ZOOM_CTL_PIN GPIO_PIN_7
+#define ZOOM_CTL_PORT GPIOA
+#define SHUTTER_CTL_PIN GPIO_PIN_5
+#define SHUTTER_CTL_PORT GPIOA
+#define PALETTE_CTL_PIN GPIO_PIN_0
+#define PALETTE_CTL_PORT GPIOB
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,13 +96,36 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  /* Initialize command handler system */
 
+////  /* Initialize UART handlers */
+//  UART_Handler_Init();
+//  uint32_t last_timeout_check = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+//      /* Check for command timeouts every 100ms */
+//      if (HAL_GetTick() - last_timeout_check >= 100) {
+//          uint8_t timeouts = CommandHandler_CheckTimeouts();
+//          if (timeouts > 0) {
+//              // TODO: Handle timeout - log error, notify control side, etc.
+//          }
+//          last_timeout_check = HAL_GetTick();
+//      }
+//
+//      /* Monitor pending command count */
+//      size_t pending = CommandHandler_GetPendingCount();
+//      if (pending > 10) {
+//          // TODO: Warning - many pending commands, camera might not be responding
+//      }
+
+      // TODO: Add GPIO control logic based on commands
+      // TODO: Add LED status indicators
+      // TODO: Add watchdog refresh
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
