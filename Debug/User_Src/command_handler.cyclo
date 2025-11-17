@@ -1,0 +1,7 @@
+../User_Src/command_handler.c:23:9:CalculateCtrlChecksum	4
+../User_Src/command_handler.c:42:9:CalculateCamChecksum	4
+../User_Src/command_handler.c:60:6:VerifyCtrlPacket	8
+../User_Src/command_handler.c:90:6:VerifyCamPacket	7
+../User_Src/command_handler.c:126:6:Translator_SimpleSet	6
+../User_Src/command_handler.c:182:6:Translator_ZoomSet	7
+../User_Src/command_handler.c:239:6:Translator_ReadQuery	9

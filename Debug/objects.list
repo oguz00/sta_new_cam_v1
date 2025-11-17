@@ -26,3 +26,6 @@
 "./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.o"
 "./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.o"
 "./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.o"
+"./User_Src/command_handler.o"
+"./User_Src/command_tracking.o"
+"./User_Src/packet_builder.o"
