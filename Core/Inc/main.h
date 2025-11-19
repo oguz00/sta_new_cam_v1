@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2025 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -59,7 +59,23 @@ void Error_Handler(void);
 
 /* Private defines -----------------------------------------------------------*/
 /* USER CODE BEGIN Private defines */
+#define VEHICLE_TX_Pin GPIO_PIN_2
+#define VEHICLE_TX_GPIO_Port GPIOA
+#define VEHICLE_RX_Pin GPIO_PIN_3
+#define VEHICLE_RX_GPIO_Port GPIOA
+#define CAM_TX_Pin GPIO_PIN_9
+#define CAM_TX_GPIO_Port GPIOA
+#define CAM_RX_Pin GPIO_PIN_10
+#define CAM_RX_GPIO_Port GPIOA
 
+#define EMPTY_Pin GPIO_PIN_6
+#define EMPTY_GPIO_Port GPIOA
+#define PALETTE_CTL_Pin GPIO_PIN_0
+#define PALETTE_CTL_GPIO_Port GPIOB
+#define ZOOM_CTL_Pin GPIO_PIN_7
+#define ZOOM_CTL_GPIO_Port GPIOA
+#define SHUTTER_CTL_Pin GPIO_PIN_5
+#define SHUTTER_CTL_GPIO_Port GPIOA
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

@@ -1,3 +1,4 @@
+"./Application/app.o"
 "./Core/Src/gpio.o"
 "./Core/Src/main.o"
 "./Core/Src/stm32l4xx_hal_msp.o"
@@ -29,3 +30,4 @@
 "./User_Src/command_handler.o"
 "./User_Src/command_tracking.o"
 "./User_Src/packet_builder.o"
+"./User_Src/uart_handler.o"

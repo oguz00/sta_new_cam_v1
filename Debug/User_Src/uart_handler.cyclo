@@ -1,0 +1,11 @@
+../User_Src/uart_handler.cpp:40:6:void UART_Handler_Init()	1
+../User_Src/uart_handler.cpp:62:6:void UART_Handler_RxCplt(UART_HandleTypeDef*)	3
+../User_Src/uart_handler.cpp:75:6:void HAL_UART_ErrorCallback(UART_HandleTypeDef*)	3
+../User_Src/uart_handler.cpp:83:6:bool UART_SendToCamera(const uint8_t*, uint16_t)	4
+../User_Src/uart_handler.cpp:99:6:bool UART_SendToControl(const uint8_t*, uint16_t)	4
+../User_Src/uart_handler.cpp:115:6:void UART_HandleControlPacket(const uint8_t*, uint16_t)	3
+../User_Src/uart_handler.cpp:138:6:void UART_HandleCameraPacket(const uint8_t*, uint16_t)	3
+../User_Src/uart_handler.cpp:160:13:void reset_control_buffer()	1
+../User_Src/uart_handler.cpp:166:13:void reset_camera_buffer()	1
+../User_Src/uart_handler.cpp:173:13:void control_rx_put_byte(uint8_t)	10
+../User_Src/uart_handler.cpp:236:13:void camera_rx_put_byte(uint8_t)	7

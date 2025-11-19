@@ -1,0 +1,3 @@
+../Application/app.cpp:7:6:void app_entry()	1
+../Application/app.cpp:26:6:void HAL_UART_RxCpltCallback(UART_HandleTypeDef*)	1
+../Application/app.cpp:31:6:void tick_callback()	1

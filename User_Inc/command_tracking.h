@@ -31,22 +31,9 @@ struct CommandMapping_s;
  */
 typedef enum {
     QUERY_NONE = 0U,              /**< Sorgu yok */
-    QUERY_CAMERA_INIT,            /**< Kamera baslat */
-    QUERY_ZOOM_IN,                /**< Zoom yakinlastir */
-    QUERY_ZOOM_OUT,               /**< Zoom uzaklastir */
-    QUERY_ZOOM_STATUS,            /**< Zoom durumu oku */
-    QUERY_ZOOM_SET,               /**< Zoom seviyesi ayarla */
-    QUERY_SHUTTER_TRIGGER,        /**< Goruntu yakala */
-    QUERY_PALETTE_CHANGE,         /**< Renk paleti degistir */
-    QUERY_PALETTE_STATUS,         /**< Palet durumu oku */
-    QUERY_GET_STATUS,             /**< Genel durum oku */
-    QUERY_GET_TEMPERATURE,        /**< Sicaklik oku */
-    QUERY_GET_VERSION,            /**< Versiyon oku */
-    QUERY_SET_PARAM,              /**< Parametre ayarla */
-    QUERY_SET_ROI,                /**< Ilgilenilen bolgeyi ayarla */
-    QUERY_GET_ROI,                /**< Ilgilenilen bolgeyi oku */
-    QUERY_CALIBRATE,              /**< Kalibrasyon yap */
-    QUERY_SET_TEXT,               /**< Metin yaz */
+	QUERY_IMG_PAL,
+	QUERY_BR_CT,
+	QUERY_AUTO_NUC,
     QUERY_MAX                     /**< Maksimum deger */
 } queryBitEnum;
 
@@ -55,31 +42,31 @@ typedef enum {
  *
  * Bekleyen bir komutun tum bilgilerini tutar
  */
-
+#pragma pack(push, 1)
 typedef struct{
-	uint8_t expected_response[CMD_MAX_LENGTH]; 		/**< Beklenen yanit paketi */
-	uint32_t response_length; 						/**< Yanit uzunlugu */
+//	uint8_t expected_response[CMD_MAX_LENGTH]; 		/**< Beklenen yanit paketi */
+//	uint32_t response_length; 						/**< Yanit uzunlugu */
 	uint8_t original_request[CMD_MAX_LENGTH];		/**< Orjinal istek paketi */
 	uint32_t request_lenth;							/**< Istek uzunlugu */
 	queryBitEnum nmbr;								/**< Sorgu tipi */
 	uint32_t timestamp;								/**< Gonderilme zamani (ms) */
 	const void *mapping;							/**< CommandMapping_t pointer */
 
-}cmdBlock_t;
-
+} cmdBlock_t ;
+#pragma pack(pop)
 /**
  * @brief Circular buffer yapisi
  *
  * Bekleyen komutlari yoneten ring buffer
  */
-
+#pragma pack(push, 1)
 typedef struct{
 	cmdBlock_t buffer[CMD_MAX_LENGTH]; /**< Komut blokları dizisi */
 	uint32_t head;					   /**< Yazma pozisyonu*/
 	uint32_t tail;						/**< Okuma pozisyonu*/
 	uint32_t count;						/**< Buffer'daki eleman sayisi*/
 }cmdRingBuffer_t;
-
+#pragma pack(pop)
 //Fonksiyon prototipleri ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 /**
  * @brief Buffer'i baslat
@@ -112,7 +99,7 @@ void CmdRingBuffer_Init(cmdRingBuffer_t* ring_buf_ptr);
 bool CmdRingBuffer_PushComplete(
 		cmdRingBuffer_t *ring_buf_ptr,
 //		const uint8_t *expected_resp_ptr,
-		uint32_t resp_len,
+//		uint32_t resp_len,
 		const uint8_t *org_req_ptr,
 		uint32_t req_len,
 		queryBitEnum query_type,

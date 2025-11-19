@@ -1,21 +1,21 @@
-../User_Src/packet_builder.c:50:17:CalculateOldChecksum	2
-../User_Src/packet_builder.c:68:6:OldPacket_Init	2
-../User_Src/packet_builder.c:91:6:OldPacket_AddByte	3
-../User_Src/packet_builder.c:116:6:OldPacket_AddUint16	3
-../User_Src/packet_builder.c:140:6:OldPacket_AddUint32	5
-../User_Src/packet_builder.c:173:6:OldPacket_AddBytes	6
-../User_Src/packet_builder.c:204:6:OldPacket_Finalize	5
-../User_Src/packet_builder.c:245:16:OldPacket_GetBuffer	2
-../User_Src/packet_builder.c:260:9:OldPacket_GetLength	2
-../User_Src/packet_builder.c:279:6:NewPacket_Init	2
-../User_Src/packet_builder.c:298:6:NewPacket_AddByte	3
-../User_Src/packet_builder.c:321:6:NewPacket_AddUint16	3
-../User_Src/packet_builder.c:345:6:NewPacket_AddBytes	6
-../User_Src/packet_builder.c:374:6:NewPacket_Finalize	4
-../User_Src/packet_builder.c:400:16:NewPacket_GetBuffer	2
-../User_Src/packet_builder.c:415:9:NewPacket_GetLength	2
-../User_Src/packet_builder.c:434:9:OldPacket_GetCommandId	2
-../User_Src/packet_builder.c:449:6:OldPacket_GetByte	3
-../User_Src/packet_builder.c:469:6:OldPacket_GetUint16	3
-../User_Src/packet_builder.c:494:6:NewPacket_GetByte	3
-../User_Src/packet_builder.c:513:6:NewPacket_GetUint16	3
+../User_Src/packet_builder.cpp:50:17:uint16_t CalculateOldChecksum(const uint8_t*, uint8_t)	2
+../User_Src/packet_builder.cpp:68:6:void OldPacket_Init(OldPacket_t*, OldPacketType_t, uint8_t)	2
+../User_Src/packet_builder.cpp:91:6:bool OldPacket_AddByte(OldPacket_t*, uint8_t)	3
+../User_Src/packet_builder.cpp:116:6:bool OldPacket_AddUint16(OldPacket_t*, uint16_t)	3
+../User_Src/packet_builder.cpp:140:6:bool OldPacket_AddUint32(OldPacket_t*, uint32_t)	5
+../User_Src/packet_builder.cpp:173:6:bool OldPacket_AddBytes(OldPacket_t*, const uint8_t*, uint8_t)	6
+../User_Src/packet_builder.cpp:204:6:bool OldPacket_Finalize(OldPacket_t*)	5
+../User_Src/packet_builder.cpp:245:16:const uint8_t* OldPacket_GetBuffer(const OldPacket_t*)	2
+../User_Src/packet_builder.cpp:260:9:uint8_t OldPacket_GetLength(const OldPacket_t*)	2
+../User_Src/packet_builder.cpp:279:6:void NewPacket_Init(NewPacket_t*, uint8_t)	2
+../User_Src/packet_builder.cpp:298:6:bool NewPacket_AddByte(NewPacket_t*, uint8_t)	3
+../User_Src/packet_builder.cpp:321:6:bool NewPacket_AddUint16(NewPacket_t*, uint16_t)	3
+../User_Src/packet_builder.cpp:345:6:bool NewPacket_AddBytes(NewPacket_t*, const uint8_t*, uint8_t)	6
+../User_Src/packet_builder.cpp:374:6:bool NewPacket_Finalize(NewPacket_t*)	4
+../User_Src/packet_builder.cpp:400:16:const uint8_t* NewPacket_GetBuffer(const NewPacket_t*)	2
+../User_Src/packet_builder.cpp:415:9:uint8_t NewPacket_GetLength(const NewPacket_t*)	2
+../User_Src/packet_builder.cpp:434:9:uint8_t OldPacket_GetCommandId(const uint8_t*)	2
+../User_Src/packet_builder.cpp:449:6:bool OldPacket_GetByte(const uint8_t*, uint8_t, uint8_t*)	3
+../User_Src/packet_builder.cpp:469:6:bool OldPacket_GetUint16(const uint8_t*, uint8_t, uint16_t*)	3
+../User_Src/packet_builder.cpp:494:6:bool NewPacket_GetByte(const uint8_t*, uint8_t, uint8_t*)	3
+../User_Src/packet_builder.cpp:513:6:bool NewPacket_GetUint16(const uint8_t*, uint8_t, uint16_t*)	3

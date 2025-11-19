@@ -25,19 +25,20 @@
 #include "command_tracking.h"
 #include "packet_builder.h"
 
-
+/* Make 16-bit key from KB0,KB1 */
+#define MAKE_CTRL_KEY(kb0,kb1) ( (uint16_t)( ((uint16_t)(kb0) << 8U) | (uint16_t)(kb1) ) )
 /** @brief Komut timeout suresi (milisaniye) */
 #define COMMAND_TIMEOUT_MS  (1000U)
 
 /* Kontrol tarafi protokol sabitleri */
-#define CTRL_PKT_START_TX       (0xAAU)  /* Set komutu baslangici */
-#define CTRL_PKT_START_RX       (0x55U)  /* Response baslangici */
-#define CTRL_PKT_END1           (0xEBU)  /* Son byte 1 */
-#define CTRL_PKT_END2           (0xAAU)  /* Son byte 2 */
+#define CTRL_PKT_START_AA       (0xAAU)  /* Set komutu baslangici */
+#define CTRL_PKT_START_55       (0x55U)  /* Response baslangici */
+#define CTRL_PKT_END_EB           (0xEBU)  /* Son byte 1 */
+#define CTRL_PKT_END_AA         (0xAAU)  /* Son byte 2 */
 #define CTRL_PKT_RESERVE_SET    (0x01U)  /* Set komutlarinda reserve byte */
 #define CTRL_PKT_RESERVE_READ   (0x00U)  /* Read komutlarinda reserve byte */
-#define CTRL_PKT_RESERVE_RESP   (0x33U)  /* Response'larda reserve byte */
-#define CTRL_PKT_RESP_ACK       (0x01U)  /* Set response ACK byte */
+#define CTRL_PKT_RESP_RESERVE	(0x33U)  /* Response'larda reserve byte */
+#define CTRL_PKT_RESP_ACK_BYTE  (0x01U)  /* Set response ACK byte */
 
 /* Kamera tarafi protokol sabitleri */
 #define CAM_PKT_START1          (0x55U)  /* Baslangic byte 1 */
@@ -47,7 +48,7 @@
 #define CAM_PKT_ACK_ERROR       (0x01U)  /* Hata response */
 
 
-
+#define COMMAND_TIMEOUT_MS      (1000U)
 /**
  * @brief Komut tipi
  */
@@ -94,20 +95,41 @@ typedef bool (*CamToCtrlResponse_t)(
     uint8_t *ctrl_response_ptr,
     uint8_t *ctrl_resp_len_ptr
 );
+/**
+ * @brief Opsiyonel matcher: payload bazli daha ince eslesme
+ *
+ * Return true means mapping matches this ctrl packet (e.g. payload range).
+ */
+typedef bool (*CtrlMatchFunc_t)(
+    const uint8_t *ctrl_packet_ptr,
+    uint8_t ctrl_len
+);
 
 /**
- * @brief Komut eslestirme yapisi
+ * @brief Komut eslestirme kaydi
+ *
+ * Bu struct flash'ta saklanir. matcher NULL ise translator tek basina yeterlidir.
  */
-typedef struct {
-    uint8_t ctrl_cmd_byte;              /* Kontrol tarafindaki komut byte'i */
-    queryBitEnum query_id;              /* Sorgu tipi */
-    CommandType_t cmd_type;             /* Set veya Read */
-    uint8_t cam_cmd_bytes[3];           /* Kamera tarafindaki 3 komut byte'i */
-    CtrlToCamTranslator_t translator;   /* Ceviri fonksiyonu */
-    CamToCtrlResponse_t response_gen;   /* Yanit uretici */
-    const char *description;            /* Aciklama */
-} CommandMapping_t;
+typedef struct CommandMapping_s {
+    uint16_t ctrl_key;                 /* control-side command byte (packet[3]) */
+    queryBitEnum query_id;            /* commands_tracking ile iliskilendirir */
+    CommandType_t type;               /* set/read */
+    uint8_t cam_cmd[3];               /* camera command bytes suggestion */
+    CtrlToCamTranslator_t translator; /* ceviri fonksiyonu */
+    CamToCtrlResponse_t response_gen; /* yanit uretici */
+    CtrlMatchFunc_t matcher;          /* opsiyonel: payload'a gore eslesme */
+    const char *desc;                 /* aciklama (readonly) */
+}CommandMapping_t;
 
+/* Direct lookup: 256 pointers (small RAM cost, fast lookup) */
+extern const CommandMapping_t *g_cmd_lookup_table[256];
+
+/**
+ * @brief Build lookup table from static mapping array.
+ *
+ * Call once at init (CommandHandler_Init does this).
+ */
+void CommandHandler_BuildLookup(void);
 
 /**
  * @brief Komut isleyiciyi baslat
@@ -115,14 +137,16 @@ typedef struct {
 void CommandHandler_Init(void);
 
 /**
- * @brief Kontrol paketini kamera paketine cevir
+ * CommandHandler_TranslateCtrlToCam - Kontrol paketini kamera paketine cevirir
  *
- * @param[in]  ctrl_packet_ptr  Kontrol tarafindan gelen paket
- * @param[in]  ctrl_len         Paket uzunlugu
- * @param[out] cam_packet_ptr   Kameraya gonderilecek paket (cikti)
- * @param[out] cam_len_ptr      Kamera paketi uzunlugu (cikti)
+ * Bu fonksiyon:
+ *  - Kontrol paketini dogrular (VerifyCtrlPacket),
+ *  - KB0/KB1 anahtarini olusturup command_map uzerinde binary search ile mapping bulur,
+ *  - Eger mapping->matcher varsa onu calistirir,
+ *  - Mapping'in translator'ini cagirarak kamera paketini uretir,
+ *  - Orjinal kontrol istegini pending buffer'a (CmdRingBuffer) ekler.
  *
- * @return Ceviri sonucu
+ *
  */
 TranslationResult_t CommandHandler_TranslateCtrlToCam(
     const uint8_t *ctrl_packet_ptr,

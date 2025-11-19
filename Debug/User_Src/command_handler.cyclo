@@ -1,7 +1,19 @@
-../User_Src/command_handler.c:23:9:CalculateCtrlChecksum	4
-../User_Src/command_handler.c:42:9:CalculateCamChecksum	4
-../User_Src/command_handler.c:60:6:VerifyCtrlPacket	8
-../User_Src/command_handler.c:90:6:VerifyCamPacket	7
-../User_Src/command_handler.c:126:6:Translator_SimpleSet	6
-../User_Src/command_handler.c:182:6:Translator_ZoomSet	7
-../User_Src/command_handler.c:239:6:Translator_ReadQuery	9
+../User_Src/command_handler.cpp:75:6:void CommandHandler_BuildLookup()	4
+../User_Src/command_handler.cpp:100:16:int16_t CompareCtrlKey(const void*, const void*)	3
+../User_Src/command_handler.cpp:113:25:const CommandMapping_t* FindMappingByCtrlKey(uint16_t)	4
+../User_Src/command_handler.cpp:130:9:uint8_t CalculateCtrlChecksum(const uint8_t*, uint8_t)	4
+../User_Src/command_handler.cpp:147:9:uint8_t CalculateCamChecksum(const uint8_t*, uint8_t)	4
+../User_Src/command_handler.cpp:164:6:bool VerifyCtrlPacket(const uint8_t*, uint8_t)	8
+../User_Src/command_handler.cpp:188:6:bool VerifyCamPacket(const uint8_t*, uint8_t)	7
+../User_Src/command_handler.cpp:209:6:void CommandHandler_Init()	1
+../User_Src/command_handler.cpp:217:21:TranslationResult_t CommandHandler_TranslateCtrlToCam(const uint8_t*, uint8_t, uint8_t*, uint8_t*)	10
+../User_Src/command_handler.cpp:273:21:TranslationResult_t CommandHandler_ProcessCamResponse(const uint8_t*, uint8_t, uint8_t*, uint8_t*)	8
+../User_Src/command_handler.cpp:320:9:uint8_t CommandHandler_CheckTimeouts()	3
+../User_Src/command_handler.cpp:336:10:uint32_t CommandHandler_GetPendingCount()	1
+../User_Src/command_handler.cpp:343:13:bool Translator_SimpleSet(const uint8_t*, uint8_t, uint8_t*, uint8_t*)	6
+../User_Src/command_handler.cpp:388:13:bool Translator_ZoomSet(const uint8_t*, uint8_t, uint8_t*, uint8_t*)	7
+../User_Src/command_handler.cpp:435:13:bool Translator_ReadQuery(const uint8_t*, uint8_t, uint8_t*, uint8_t*)	9
+../User_Src/command_handler.cpp:492:13:void BuildCtrlResponseHeader(uint8_t*, uint8_t*, uint8_t, uint8_t)	1
+../User_Src/command_handler.cpp:505:13:bool ResponseGen_SimpleACK(const uint8_t*, uint8_t, const uint8_t*, uint8_t, uint8_t*, uint8_t*)	5
+../User_Src/command_handler.cpp:533:13:bool ResponseGen_EchoParam(const uint8_t*, uint8_t, const uint8_t*, uint8_t, uint8_t*, uint8_t*)	6
+../User_Src/command_handler.cpp:570:13:bool ResponseGen_MultiParam(const uint8_t*, uint8_t, const uint8_t*, uint8_t, uint8_t*, uint8_t*)	10

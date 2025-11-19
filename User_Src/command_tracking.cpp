@@ -1,4 +1,3 @@
-
 /**
  * @file commands_tracking.c
  * @brief Circular buffer implementasyonu
@@ -30,7 +29,7 @@ void CmdRingBuffer_Init (cmdRingBuffer_t *ring_buf_ptr)
 bool CmdRingBuffer_PushComplete(
 		cmdRingBuffer_t *ring_buf_ptr,
 //		const uint8_t *expected_resp_ptr,
-		uint32_t resp_len,
+//		uint32_t resp_len,
 		const uint8_t *orig_req_ptr,
 		uint32_t req_len,
 		queryBitEnum query_type,
@@ -46,7 +45,7 @@ bool CmdRingBuffer_PushComplete(
 			if(ring_buf_ptr->count < CMD_BUFFER_SIZE)
 			{
 				/*Uzunluk sınırlar içinde mi kontrol et*/
-				if((req_len<=CMD_MAX_LENGTH) && (resp_len<= CMD_MAX_LENGTH))
+				if(req_len<=CMD_MAX_LENGTH )
 				{
 					/*Yeni slot'un pointer'ını al */
 					block_ptr=&ring_buf_ptr->buffer[ring_buf_ptr->head];
@@ -208,38 +207,5 @@ bool CmdRingBuffer_RemoveIfTimeout(
 
     return result;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
